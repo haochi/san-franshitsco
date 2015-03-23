@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>San Franshitsco</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jtblin/angular-chart.js/a62a63b73523f3cd8182c2c6cabcfb40dd2f5c25/dist/angular-chart.css">
+    <link rel="stylesheet" href="san-franshitsco.css">
+</head>
+<body>
+
+<div class="container-fluid" ng-controller="MainController">
+    <div class="row">
+        <div class="col-md-9">
+            <div id="map-canvas"></div>
+        </div>
+        <div class="col-md-3">
+            <form>
+                <h3>Filters</h3>
+
+                <div class="form-group">
+                    <label class="label-control">View:</label>
+                    <select class="form-control" ng-options="name as display for (name, display) in views" ng-model="view"></select>
+                </div>
+
+                <div class="form-group">
+                    <label class="label-control">How Many:</label>
+                    <select class="form-control" ng-options="'Last ' + n for n in sizes" ng-model="size">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="label-control">Neighborhood:</label>
+                    <select class="form-control" ng-options="name as name for (name, dumps) in neighborhoods" ng-model="neighborhood">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="label-control">Image Only:</label>
+                    <select class="form-control" ng-options="value as label for (label, value) in images" ng-model="image"></select>
+                </div>
+
+                <div class="form-group">
+                    <label class="label-control">Start Date:</label>
+                    <input class="form-control" type="date" ng-model="startDate" />
+                </div>
+
+                <div class="form-group">
+                    <label class="label-control">End Date:</label>
+                    <input class="form-control" type="date" ng-model="endDate" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Poop Forecast</h3>
+            <canvas class="chart chart-line" data="forecast.data" labels="forecast.labels" click="onForecastClick"></canvas> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Funnily Asked Questions&#8253;</h3>
+
+            <ul>
+                <li>
+                    <h4>Was ist das?</h4>
+                    <div>
+                        A poop map of San Francisco.
+                        Well, technically anything that classifies as "Human Waste" by the <a href="http://www.sf311.org/">San Francisco 311</a>
+                        (with data from <a href="https://data.sfgov.org/">DataSF</a>).
+                    </div>
+                </li>
+
+                <li>
+                    <h4>Look I am here for poop pics. Where are they?</h4>
+                    <div><a href="#map-canvas" ng-click="image = true; view = 'markers';">I won't stop you, but prepare yourself.</a></div>
+                </li>
+
+                <li>
+                    <h4>How did you come up with this? I don't even ...</h4>
+                    <div>Inspiration from <em><a href="http://jennz0r.github.io/wasteland/">Wasteland</a></em> by Jennifer Wong.</div>
+                </li>
+            </ul> 
+        </div>
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8y1un491PQT-0ZcesQPmrc3grmx-BR_I&libraries=visualization"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dot/1.0.3/doT.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
+<script src="https://cdn.rawgit.com/jtblin/angular-chart.js/a62a63b73523f3cd8182c2c6cabcfb40dd2f5c25/dist/angular-chart.min.js"></script>
+<script src="https://cdn.rawgit.com/Tom-Alexander/regression-js/920fce51bc29b0b11b9dfbb07f2531eedb9789dd/src/regression.js"></script>
+
+<script src="scripts/ThirdPartyServices.js"></script>
+
+<script src="scripts/SanFranshitscoApp.js"></script>
+<script src="scripts/SanFranshitscoService.js"></script>
+<script src="scripts/SanFranshitscoMapService.js"></script>
+<script src="scripts/SanFranshitscoControllers.js"></script>
+<script src="scripts/app.js"></script>
+</body>
+</html>
