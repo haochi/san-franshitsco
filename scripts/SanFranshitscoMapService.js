@@ -46,7 +46,7 @@ angular.module('sanFranshitscoApp').factory('SanFranshitscoMapService', ['doT', 
 
     service.setRecords = function (records) {
         service.clear();
-        records.forEach(function (record) {
+        records.filter(function (record) { return record.point; }).forEach(function (record) {
             var lat = parseFloat(record.point.latitude),
                 lng = parseFloat(record.point.longitude),
                 latlng = new google.maps.LatLng(lat, lng),
